@@ -8,18 +8,17 @@ import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import { Toaster } from "react-hot-toast";
+import { createStore } from "../../services/dataServices";
 import { TOAST_SUCCESS_MESSAGE } from "../../utilities/constants";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addStore } from "../../redux/actions/storeAction";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 
 function StoreForm() {
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
   const [categoryType, setCategoryType] = useState("");
-  const [stores, setStores] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,21 +36,20 @@ function StoreForm() {
     setCategories(categories.filter((el, i) => i !== index));
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const newStore = {
-      id: uuidv4(),
+    const payload = {
       name: name,
       categories: categories
     };
-    setStores([...stores, newStore]);
-    setName("");
+    const result = await createStore(payload);
+    console.log(result);
     setCategoryType("");
     setCategories([]);
     if (name && categoryType) {
       toast.success(TOAST_SUCCESS_MESSAGE);
     }
-    dispatch(addStore(newStore));
+    dispatch(addStore(result));
     navigate(path);
   };
   return (

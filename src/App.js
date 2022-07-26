@@ -5,14 +5,14 @@ import StoreForm from "../src/Components/storeForm/storeForm";
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "../src/Components/landingPage/landingPage";
 import ProductTable from "../src/Components/productTable/productTable";
-import ErrorBoundary from "../src/Components/errorBoundary/errorBoundary";
+// import ErrorBoundary from "../src/Components/errorBoundary/errorBoundary";
 
 function App() {
   return (
     <div className="App">
-      <ErrorBoundary>
-        <Header />
-      </ErrorBoundary>
+      <Header />
+      {/* <ErrorBoundary>
+      </ErrorBoundary> */}
       <Routes>
         <Route path="/" element={<LandingPage />} />
       </Routes>

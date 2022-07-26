@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable prettier/prettier */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -15,50 +13,58 @@ import { Toaster } from "react-hot-toast";
 import { TOAST_SUCCESS_MESSAGE } from "../../utilities/constants";
 import toast from "react-hot-toast";
 import { Container } from "@mui/system";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/actions/productAction";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
-
+import { createProduct, getStoreById } from "../../services/dataServices";
 
 function ProductForm() {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
-  const [products, setProducts] = useState([]);
   const [category, setCategory] = useState("");
 
   const { id } = useParams();
-  const data = useSelector((state) => {
-    return state?.store?.data?.filter((pro) => pro.id ===id)
-  });
-  
+
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const callingApi = () => {
+      getStoreById(id)
+        .then((res) => {
+          setProducts(res.data.payload.data.categories);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    callingApi();
+  }, []);
+
+  const dispatch = useDispatch();
 
   let navigate = useNavigate();
-  const dispatch = useDispatch();
-  
-  let path="/"
+  let path = "/";
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setCategory("");
-    setName("");
-    setQuantity("");
-    setPrice("");
-    const newProducts = {
+    const payload = {
       name: name,
       category: category,
       price: price,
       quantity: quantity
     };
-    setProducts([...products, newProducts]);
+    const result = await createProduct(payload, id);
     if (name && quantity && price && category) {
       toast.success(TOAST_SUCCESS_MESSAGE);
     }
-    dispatch(addProduct(newProducts));
-    navigate(path)
+    setCategory("");
+    setName("");
+    setQuantity("");
+    setPrice("");
+    dispatch(addProduct(result.data.payload.data));
+    navigate(path);
   };
   return (
     <Container>
@@ -107,11 +113,11 @@ function ProductForm() {
                 value={category}
                 label="Category"
                 required>
-                {data.map((elm) => {
-                  console.log(elm,"DATA")
+                {products.map((item, index) => {
+                  // console.log(item)
                   return (
-                    <MenuItem key={elm} value={elm}>
-                      {elm.categories}
+                    <MenuItem value={item} key={index}>
+                      {item}
                     </MenuItem>
                   );
                 })}

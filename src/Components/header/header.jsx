@@ -12,7 +12,7 @@ const Header = () => {
   });
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} data-testid="header-1">
       <AppBar position="static" className="header-color">
         <Toolbar>
           <IconButton
@@ -26,16 +26,6 @@ const Header = () => {
               Luminogics
             </Typography>
           </Link>
-
-          {/* <marquee
-            style={{
-              fontFamily: "Raleway sans-serif",
-              fontSize: "34px"
-            }}
-            component="div"
-            sx={{ flexGrow: 1 }}>
-            Inventory Management System
-          </marquee> */}
         </Toolbar>
       </AppBar>
     </Box>

@@ -18,7 +18,7 @@ const LandingPage = () => {
           boxShadow: "rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;"
         }}>
         <CardContent>
-          <Grid sx={{ display: "flex", justifyContent: "space-between", width: "92%" }}>
+          <Grid sx={{ display: "flex", justifyContent: "space-between", width: "96%" }}>
             <Typography variant="h4" ml="2vh">
               Stores
             </Typography>
