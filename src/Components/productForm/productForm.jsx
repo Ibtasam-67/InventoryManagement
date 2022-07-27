@@ -19,16 +19,16 @@ import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { createProduct, getStoreById } from "../../services/dataServices";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function ProductForm() {
+  const { id } = useParams();
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
-
-  const { id } = useParams();
-
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const callingApi = () => {
       getStoreById(id)
@@ -49,6 +49,7 @@ function ProductForm() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const payload = {
       name: name,
       category: category,
@@ -65,6 +66,7 @@ function ProductForm() {
     setPrice("");
     dispatch(addProduct(result.data.payload.data));
     navigate(path);
+    setLoading(false);
   };
   return (
     <Container>
@@ -159,7 +161,7 @@ function ProductForm() {
               }}
               variant="contained"
               onClick={onSubmit}>
-              Add Product
+              {loading ? <CircularProgress /> : "Create"}
             </Button>
           </Box>
         </CardContent>

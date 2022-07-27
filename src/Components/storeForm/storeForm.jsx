@@ -14,11 +14,13 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addStore } from "../../redux/actions/storeAction";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function StoreForm() {
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
   const [categoryType, setCategoryType] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,12 +40,12 @@ function StoreForm() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const payload = {
       name: name,
       categories: categories
     };
     const result = await createStore(payload);
-    console.log(result);
     setCategoryType("");
     setCategories([]);
     if (name && categoryType) {
@@ -51,6 +53,7 @@ function StoreForm() {
     }
     dispatch(addStore(result));
     navigate(path);
+    setLoading(false);
   };
   return (
     <Container>
@@ -150,7 +153,7 @@ function StoreForm() {
                 }}
                 variant="contained"
                 onClick={onSubmit}>
-                Create
+                {loading ? <CircularProgress /> : "Create"}
               </Button>
             </Box>
           </CardContent>
