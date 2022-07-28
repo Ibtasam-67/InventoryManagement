@@ -7,7 +7,8 @@ import {
   TableHead,
   TableRow,
   Typography,
-  TablePagination
+  TablePagination,
+  Tooltip
 } from "@mui/material";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -61,7 +62,7 @@ export default function Tablee() {
                 <TableHead>
                   <TableRow>
                     <CustomTableCell name="Name" />
-                    <CustomTableCell name="Category" />
+                    <CustomTableCell name="No Of Categories" />
                     <CustomTableCell name="Store" />
                   </TableRow>
                 </TableHead>
@@ -75,7 +76,7 @@ export default function Tablee() {
                         key={store._id}
                         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                         <CustomTableCell name={store.name} />
-                        <CustomTableCell name={store.categories} />
+                        <CustomTableCell name={store.categories.length} />
 
                         <TableCell align="center">
                           <Link
@@ -83,7 +84,11 @@ export default function Tablee() {
                             to={{
                               pathname: `/producttable/${store._id}`
                             }}>
-                            <AiFillEye style={{ fontSize: "28px", color: "#1976D2" }} />
+                            <Tooltip placement="right" title="View Store">
+                              <div>
+                                <AiFillEye style={{ fontSize: "28px", color: "#1976D2" }} />
+                              </div>
+                            </Tooltip>
                           </Link>
                         </TableCell>
                       </TableRow>

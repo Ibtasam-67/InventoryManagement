@@ -10,7 +10,8 @@ import {
   Fab,
   Grid,
   CardContent,
-  TablePagination
+  TablePagination,
+  Tooltip
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { Link } from "react-router-dom";
@@ -71,11 +72,19 @@ const ProductTable = () => {
                 <Typography variant="h4" ml="2vh">
                   Products
                 </Typography>
-                <Link to={`/productform/${id}`}>
-                  <Fab color="primary" aria-label="add">
-                    <GrAddCircle style={{ color: "white" }} />
-                  </Fab>
-                </Link>
+
+                <Fab color="primary" aria-label="add">
+                  <Link to={`/productform/${id}`}>
+                    <Tooltip placement="right" title="Add Product">
+                      <div>
+                        <GrAddCircle
+                          fontSize="1.0em"
+                          style={{ cursor: "pointer", marginTop: "10px" }}
+                        />
+                      </div>
+                    </Tooltip>
+                  </Link>
+                </Fab>
               </Grid>
               <Divider sx={{ mt: "4vh" }} />
 

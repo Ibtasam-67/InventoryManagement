@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "@mui/system";
 import { Typography, CardContent, Grid, Divider, Fab } from "@mui/material";
 import { GrAddCircle } from "react-icons/gr";
+import Tooltip from "@mui/material/Tooltip";
 import Table from "../storeTable/storeTable";
 import { Link } from "react-router-dom";
 
@@ -18,11 +19,18 @@ const LandingPage = () => {
             <Typography variant="h4" ml="2vh">
               Stores
             </Typography>
-            <Link to="/storeform">
-              <Fab color="primary" aria-label="add">
-                <GrAddCircle />
-              </Fab>
-            </Link>
+            <Fab color="primary" aria-label="add">
+              <Link to="/storeform">
+                <Tooltip placement="right" title="Add Store">
+                  <div>
+                    <GrAddCircle
+                      fontSize="1.0em"
+                      style={{ cursor: "pointer", marginTop: "10px" }}
+                    />
+                  </div>
+                </Tooltip>
+              </Link>
+            </Fab>
           </Grid>
           <Divider sx={{ mt: "4vh" }} />
           <Table />
