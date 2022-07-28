@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import {
+  CardContent,
+  TextField,
+  Box,
+  Typography,
+  Button,
+  Grid,
+  CircularProgress,
+  Card,
+  Container
+} from "@mui/material";
 import { Toaster } from "react-hot-toast";
 import { createStore } from "../../services/dataServices";
 import { TOAST_SUCCESS_MESSAGE } from "../../utilities/constants";
@@ -14,7 +17,6 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addStore } from "../../redux/actions/storeAction";
 import { useNavigate } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
 
 function StoreForm() {
   const [name, setName] = useState("");
@@ -46,13 +48,18 @@ function StoreForm() {
       categories: categories
     };
     const result = await createStore(payload);
+    setName("");
     setCategoryType("");
     setCategories([]);
+
     if (name && categoryType) {
       toast.success(TOAST_SUCCESS_MESSAGE);
     }
+
     dispatch(addStore(result));
-    navigate(path);
+    setTimeout(() => {
+      navigate(path);
+    }, 2000);
     setLoading(false);
   };
   return (
@@ -87,6 +94,7 @@ function StoreForm() {
                 variant="outlined"
                 value={name}
               />
+
               <TextField
                 onChange={(e) => {
                   setCategoryType(e.target.value);
@@ -99,6 +107,7 @@ function StoreForm() {
                 onKeyDown={handleKeyDown}
                 sx={{ marginTop: "20px", width: "100%" }}
               />
+
               <Grid
                 container
                 sx={{

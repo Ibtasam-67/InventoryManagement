@@ -1,76 +1,29 @@
 import React, { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import Box from "@mui/material/Box";
-import { useTheme } from "@mui/material/styles";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  TablePagination
+} from "@mui/material";
 import { AiFillEye } from "react-icons/ai";
-import { Rings } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 import { getStore } from "../../services/dataServices";
-import IconButton from "@mui/material/IconButton";
-import { BiFirstPage } from "react-icons/bi";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { BiLastPage } from "react-icons/bi";
-import TableFooter from "@mui/material/TableFooter";
-import TablePagination from "@mui/material/TablePagination";
+import Loader from "../../common/loader/loader";
+import CustomTableCell from "../../common/tableCell/tableCell";
+import Pagination from "../../common/pagination/pagination";
 
 function TablePaginationActions(props) {
-  const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
-
-  const handleFirstPageButtonClick = (event) => {
-    onPageChange(event, 0);
-  };
-
-  const handleBackButtonClick = (event) => {
-    onPageChange(event, page - 1);
-  };
-
-  const handleNextButtonClick = (event) => {
-    onPageChange(event, page + 1);
-  };
-
-  const handleLastPageButtonClick = (event) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
-
-  return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page">
-        {theme.direction === "rtl" ? <BiLastPage /> : <BiFirstPage />}
-      </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
-        {theme.direction === "rtl" ? <AiOutlineArrowRight /> : <AiOutlineArrowLeft />}
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page">
-        {theme.direction === "rtl" ? <AiOutlineArrowLeft /> : <AiOutlineArrowRight />}
-      </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page">
-        {theme.direction === "rtl" ? <BiFirstPage /> : <BiLastPage />}
-      </IconButton>
-    </Box>
-  );
+  return <Pagination props={props} />;
 }
 
 export default function Tablee() {
   const [storeItems, setstoreItems] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleChangePage = (event, newPage) => {
@@ -82,26 +35,24 @@ export default function Tablee() {
     setPage(0);
   };
 
+  const callingApi = () => {
+    setLoading(true);
+    getStore()
+      .then((res) => {
+        setLoading(false);
+        setstoreItems(res.data.payload.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
-    const callingApi = () => {
-      setLoading(true);
-      getStore()
-        .then((res) => {
-          setLoading(false);
-          setstoreItems(res.data.payload.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
     callingApi();
   }, []);
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center ">
-          <Rings color="#00BFFF" height={400} width={1500} />
-        </div>
+        <Loader />
       ) : (
         <div>
           {storeItems.length ? (
@@ -109,34 +60,23 @@ export default function Tablee() {
               <Table size="small" aria-label="a dense table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>
-                      <Typography sx={{ fontWeight: "600" }}>Store#</Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "600" }}>Name</Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "600" }}>Category</Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "600" }}>Store</Typography>
-                    </TableCell>
+                    <CustomTableCell name="Name" />
+                    <CustomTableCell name="Category" />
+                    <CustomTableCell name="Store" />
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {(rowsPerPage > 0
                     ? storeItems.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     : storeItems
-                  ).map((store, index) => {
+                  ).map((store) => {
                     return (
                       <TableRow
                         key={store._id}
                         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                        <TableCell>{index}</TableCell>
-                        <TableCell sx={{ color: "black" }} align="center">
-                          {store.name}
-                        </TableCell>
-                        <TableCell align="center">{store.categories}</TableCell>
+                        <CustomTableCell name={store.name} />
+                        <CustomTableCell name={store.categories} />
+
                         <TableCell align="center">
                           <Link
                             style={{ textDecoration: "none", fontFamily: "Raleway sans-serif" }}
@@ -150,11 +90,10 @@ export default function Tablee() {
                     );
                   })}
                 </TableBody>
-                <TableFooter>
-                  <TableRow>
+                <TableRow>
+                  {storeItems.length >= 5 && (
                     <TablePagination
                       rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                      colSpan={3}
                       count={storeItems.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
@@ -168,8 +107,8 @@ export default function Tablee() {
                       onRowsPerPageChange={handleChangeRowsPerPage}
                       ActionsComponent={TablePaginationActions}
                     />
-                  </TableRow>
-                </TableFooter>
+                  )}
+                </TableRow>
               </Table>
             </TableContainer>
           ) : (
@@ -182,5 +121,3 @@ export default function Tablee() {
     </>
   );
 }
-
-// export default Tablee;

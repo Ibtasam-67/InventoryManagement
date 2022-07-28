@@ -1,11 +1,7 @@
 import React from "react";
 import { Container } from "@mui/system";
-import Grid from "@mui/material/Grid";
-import CardContent from "@mui/material/CardContent";
-import { Typography } from "@mui/material";
-import Fab from "@mui/material/Fab";
+import { Typography, CardContent, Grid, Divider, Fab } from "@mui/material";
 import { GrAddCircle } from "react-icons/gr";
-import Divider from "@mui/material/Divider";
 import Table from "../storeTable/storeTable";
 import { Link } from "react-router-dom";
 
@@ -24,7 +20,7 @@ const LandingPage = () => {
             </Typography>
             <Link to="/storeform">
               <Fab color="primary" aria-label="add">
-                <GrAddCircle style={{ color: "white" }} />
+                <GrAddCircle />
               </Fab>
             </Link>
           </Grid>

@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import Button from "@mui/material/Button";
+import {
+  CardContent,
+  MenuItem,
+  TextField,
+  Box,
+  Divider,
+  Typography,
+  Button,
+  InputLabel,
+  Select,
+  FormControl,
+  Grid,
+  CircularProgress
+} from "@mui/material";
 import { Toaster } from "react-hot-toast";
 import { TOAST_SUCCESS_MESSAGE } from "../../utilities/constants";
 import toast from "react-hot-toast";
 import { Container } from "@mui/system";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/actions/productAction";
-import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { createProduct, getStoreById } from "../../services/dataServices";
-import CircularProgress from "@mui/material/CircularProgress";
 
 function ProductForm() {
   const { id } = useParams();
@@ -65,7 +67,9 @@ function ProductForm() {
     setQuantity("");
     setPrice("");
     dispatch(addProduct(result.data.payload.data));
-    navigate(path);
+    setTimeout(() => {
+      navigate(path);
+    }, 1000);
     setLoading(false);
   };
   return (
@@ -116,7 +120,6 @@ function ProductForm() {
                 label="Category"
                 required>
                 {products.map((item, index) => {
-                  // console.log(item)
                   return (
                     <MenuItem value={item} key={index}>
                       {item}

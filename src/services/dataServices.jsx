@@ -3,8 +3,8 @@ import {
   // ADD_PRODUCT,
   ADD_STORE,
   BASE_URL,
-  GET_ALL_STORES
-  // GET_STORE_BY_ID
+  GET_ALL_STORES,
+  GET_STORE_BY_ID
 } from "../utilities/constants";
 
 export const createStore = async (payload) => {
@@ -25,7 +25,7 @@ export const getStore = async () => {
 
 export const getStoreById = async (id) => {
   try {
-    return await axios.get(`https://product-store-v1.herokuapp.com/get-store-by-id/${id}`);
+    return await axios.get(`${BASE_URL}${GET_STORE_BY_ID}${id}`);
   } catch (error) {
     console.log(error);
   }
