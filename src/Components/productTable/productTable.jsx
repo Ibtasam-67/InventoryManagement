@@ -93,10 +93,10 @@ const ProductTable = () => {
                   <Table size="small" aria-label="a dense table">
                     <TableHead>
                       <TableRow>
-                        <CustomTableCell name="Name" />
-                        <CustomTableCell name="Category" />
-                        <CustomTableCell name="Quantity" />
-                        <CustomTableCell name="Price" />
+                        <CustomTableCell name="Name" isHeader />
+                        <CustomTableCell name="Category" isHeader />
+                        <CustomTableCell name="Quantity" isHeader />
+                        <CustomTableCell name="Price" isHeader />
                       </TableRow>
                     </TableHead>
                     <TableBody>

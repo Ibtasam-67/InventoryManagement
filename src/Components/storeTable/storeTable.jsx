@@ -61,9 +61,9 @@ export default function Tablee() {
               <Table size="small" aria-label="a dense table">
                 <TableHead>
                   <TableRow>
-                    <CustomTableCell name="Name" />
-                    <CustomTableCell name="No Of Categories" />
-                    <CustomTableCell name="Store" />
+                    <CustomTableCell name="Name" isHeader />
+                    <CustomTableCell name="No Of Categories" isHeader />
+                    <CustomTableCell name="Store" isHeader />
                   </TableRow>
                 </TableHead>
                 <TableBody>

@@ -4,7 +4,13 @@ import { TableCell, Typography } from "@mui/material";
 const CustomTableCell = (props) => {
   return (
     <TableCell align="center">
-      <Typography sx={{ fontWeight: "600" }}>{props.name}</Typography>
+      <Typography
+        sx={{
+          fontWeight: props.isHeader ? "600" : "400",
+          fontSize: props.isHeader ? "20px" : "18px"
+        }}>
+        {props.name}
+      </Typography>
     </TableCell>
   );
 };
