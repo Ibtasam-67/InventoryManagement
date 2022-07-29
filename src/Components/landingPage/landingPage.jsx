@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "@mui/system";
 import { Typography, CardContent, Grid, Divider, Fab } from "@mui/material";
-import { GrAddCircle } from "react-icons/gr";
+import { GrAddCircle } from "../../common/icons/icons";
 import Tooltip from "@mui/material/Tooltip";
 import Table from "../storeTable/storeTable";
 import { Link } from "react-router-dom";
@@ -19,18 +19,19 @@ const LandingPage = () => {
             <Typography variant="h4" ml="2vh">
               Stores
             </Typography>
-            <Fab color="primary" aria-label="add">
+            <Tooltip placement="right" title="Add Store">
               <Link to="/storeform">
-                <Tooltip placement="right" title="Add Store">
-                  <div>
+                <Fab color="primary" aria-label="add">
+                  <div style={{ marginTop: "10px" }}>
                     <GrAddCircle
-                      fontSize="1.0em"
-                      style={{ cursor: "pointer", marginTop: "10px" }}
+                      color="white"
+                      title="folder icon"
+                      className="additional-class-name"
                     />
                   </div>
-                </Tooltip>
+                </Fab>
               </Link>
-            </Fab>
+            </Tooltip>
           </Grid>
           <Divider sx={{ mt: "4vh" }} />
           <Table />

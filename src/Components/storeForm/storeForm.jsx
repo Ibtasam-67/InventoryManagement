@@ -101,7 +101,7 @@ function StoreForm() {
                   setCategoryType(e.target.value);
                 }}
                 id="storeCategory"
-                label="Store Categories"
+                label="Strore Categories"
                 variant="outlined"
                 color="primary"
                 value={categoryType}

@@ -1,6 +1,5 @@
 import React from "react";
 import { useTheme } from "@mui/material/styles";
-
 import { Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";

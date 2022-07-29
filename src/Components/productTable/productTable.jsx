@@ -17,7 +17,7 @@ import { Container } from "@mui/system";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getProducts } from "../../services/dataServices";
-import { GrAddCircle } from "react-icons/gr";
+import { GrAddCircle } from "../../common/icons/icons";
 import Loader from "../../common/loader/loader";
 import CustomTableCell from "../../common/tableCell/tableCell";
 import Pagination from "../../common/pagination/pagination";
@@ -76,10 +76,11 @@ const ProductTable = () => {
                 <Fab color="primary" aria-label="add">
                   <Link to={`/productform/${id}`}>
                     <Tooltip placement="right" title="Add Product">
-                      <div>
+                      <div style={{ marginTop: "10px" }}>
                         <GrAddCircle
-                          fontSize="1.0em"
-                          style={{ cursor: "pointer", marginTop: "10px" }}
+                          color="white"
+                          title="folder icon"
+                          className="additional-class-name"
                         />
                       </div>
                     </Tooltip>
