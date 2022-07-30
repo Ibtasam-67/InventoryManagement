@@ -1,11 +1,5 @@
 import axios from "axios";
-import {
-  // ADD_PRODUCT,
-  ADD_STORE,
-  BASE_URL,
-  GET_ALL_STORES,
-  GET_STORE_BY_ID
-} from "../utilities/constants";
+import { ADD_STORE, BASE_URL, GET_ALL_STORES, GET_STORE_BY_ID } from "../utilities/constants";
 
 export const createStore = async (payload) => {
   try {

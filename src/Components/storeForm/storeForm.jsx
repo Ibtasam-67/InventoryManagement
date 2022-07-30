@@ -14,7 +14,6 @@ import { Toaster } from "react-hot-toast";
 import { createStore } from "../../services/dataServices";
 import { TOAST_SUCCESS_MESSAGE } from "../../utilities/constants";
 import toast from "react-hot-toast";
-// import { IoIosAddCircle } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { addStore } from "../../redux/actions/storeAction";
 import { useNavigate } from "react-router-dom";
@@ -108,24 +107,6 @@ function StoreForm() {
                 onKeyDown={handleKeyDown}
                 sx={{ marginTop: "20px", width: "100%" }}
               />
-              {/* <TextField
-                onChange={(e) => {
-                  setCategoryType(e.target.value);
-                }}
-                id="storeCategory"
-                label="Store Categories"
-                variant="outlined"
-                color="primary"
-                value={categoryType}
-                // onKeyDown={handleKeyDown}
-                sx={{ marginTop: "20px", width: "100%" }}
-                InputProps={{
-                  endAdornment: (
-                    <IoIosAddCircle style={{ cursor: "pointer" }} onClick={handleKeyDown} />
-                  )
-                }}
-              /> */}
-
               <Grid
                 container
                 sx={{

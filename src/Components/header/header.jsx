@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import Box from "@mui/material/Box";
-import { Toolbar, AppBar, Typography } from "@mui/material";
+import { Toolbar, AppBar, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const Header = () => {

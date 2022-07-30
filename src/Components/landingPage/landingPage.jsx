@@ -1,8 +1,7 @@
 import React from "react";
 import { Container } from "@mui/system";
-import { Typography, CardContent, Grid, Divider, Fab } from "@mui/material";
+import { Typography, CardContent, Grid, Divider, Fab, Tooltip } from "@mui/material";
 import { GrAddCircle } from "../../common/icons/icons";
-import Tooltip from "@mui/material/Tooltip";
 import Table from "../storeTable/storeTable";
 import { Link } from "react-router-dom";
 
